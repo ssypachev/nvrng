@@ -53,10 +53,10 @@ class NVRNG {
 		}
 		self.spaces = Object.keys(self.rset);
 		self.spaceLength = self.spaces.length;
-		if (allKeySets.length > 0) {
+		if (allKeySets.length > 1) {
 			for (let i = 0; i < self.spaceLength - 1; i += 1) {
 				if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i+1])) {
-					return `Key sets ${allKeySets[i]} and ${allKeySets[j]} are not equal`;
+					return `Key sets [${allKeySets[i]}] of "${self.spaces[i]}" and [${allKeySets[i+1]}] of "${self.spaces[i+1]}" are not equal`;
 				}
 			}
 		}
@@ -74,24 +74,16 @@ class NVRNG {
 	}
 	
 	getSet (size, { gender = Genders.Any } = {}) {
-		let out  = new Set(),
-			self = this;
-		for (;;) {
-			for (let [key, space] of Object.entries(self.rset)) {
-				
-				
-				
-			}
-		}
-	}
-	
-	static getSetBut (size, exclude, { gender = Genders.Any } = {}) {
 		let self = this;
 		if (gender !== Genders.Any) {
 			if (!self.keys.includes(gender)) {
 				throw `Vocabulary does not contain arrays of ${gender} gender, supported only ${self,keys}`;
 			}
 		}
+	}
+	
+	static getSetBut (size, exclude, { gender = Genders.Any } = {}) {
+		
 	}
 	
 }
