@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-class Genders = {
+const Genders = {
 	Any:     "a",
 	Female:  "f",
 	Male:    "m",
@@ -8,6 +8,12 @@ class Genders = {
 };
 
 class NVRNG {
+	/*
+	this.rset        - data itself
+	this.genders     - set of all different genders
+	this.spaces      - array of keys
+	this.spaceLength - length of spaces array
+	*/
 	
 	static randIntFromZero (max) {
 		return Math.floor(Math.random() * (max + 1));
@@ -27,9 +33,8 @@ class NVRNG {
 		return this.rset;
 	}
 	
-	upload (filename, { shuffle = true, control = true } = {}) {
+	upload (filename, { shuffle = true } = {}) {
 		let self = this;
-		let self.genders = [];
 		try {
 			self.rset = require(filename);
 		} catch (err) {
@@ -42,10 +47,33 @@ class NVRNG {
 				}
 			}
 		}
+		let allKeySets = [];
+		for (let [key, space] of Object.entries(self.rset)) {
+			allKeySets.push(Object.keys(space).sort());
+		}
+		self.spaces = Object.keys(self.rset);
+		self.spaceLength = self.spaces.length;
+		if (allKeySets.length > 0) {
+			for (let i = 0; i < self.spaceLength - 1; i += 1) {
+				if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i+1])) {
+					return `Key sets ${allKeySets[i]} and ${allKeySets[j]} are not equal`;
+				}
+			}
+		}
+		self.keys = JSON.parse(JSON.stringify(allKeySets[0]));
+		allKeySets = [];
 		return null;
 	}
 	
-	getSet (size, { gender: Genders.Any } = {}) {
+	getArrOfGender (space, gender) {
+		let self = this;
+		if (gender === Genders.Any) {
+			return space[self.keys[NVRNG.randIntFromZero(self.keys.length)]]; 
+		}
+		return space[gender];
+	}
+	
+	getSet (size, { gender = Genders.Any } = {}) {
 		let out  = new Set(),
 			self = this;
 		for (;;) {
@@ -57,13 +85,19 @@ class NVRNG {
 		}
 	}
 	
-	static getSetBut (size, exclude, { gender: Genders.Any } = {}) {
+	static getSetBut (size, exclude, { gender = Genders.Any } = {}) {
+		let self = this;
+		if (gender !== Genders.Any) {
+			if (!self.keys.includes(gender)) {
+				throw `Vocabulary does not contain arrays of ${gender} gender, supported only ${self,keys}`;
+			}
+		}
 	}
 	
 }
 
 module.exports.NVRNG   = NVRNG;
-mosule.exports.Genders = Genders;
+module.exports.Genders = Genders;
 
 
 
