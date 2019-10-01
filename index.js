@@ -147,6 +147,38 @@ class NVRNG {
 		return [null, arr];
 	}
 	
+	getOne ({ gender = Genders.Any, output = OutputFormat.Set, exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
+		let self = this;
+		if (gender !== Genders.Any) {
+			if (!self.keys.includes(gender)) {
+				return [`Vocabulary does not contain arrays of ${gender} gender, supported only ${self.keys}`, null];
+			}
+		}
+		let [err, proExclude] = NVRNG.arrOrSetToSet(exclude);
+		if (err) {
+			return [err, null];
+		}
+		let formatter = NVRNG.getStringFormatter(format);
+		if (formatter === null) {
+			return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
+		}
+		let limitter = self.limit,
+			out;
+		while (limitter-->0) {
+			let p = [];
+			for (let space of self.spaces) {
+				let arr = self.getArrOfGender(self.rset[space], gender);
+				let index = NVRNG.randIntFromZero(arr.length);
+				p.push(formatter(arr[index]));
+			}
+			out = p.join(delimiter);
+			if (!proExclude.has(out)) {
+				break;
+			}
+		}
+		return [null, out];
+	}
+	
 	getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
 		let self = this;
 		if (gender !== Genders.Any) {
