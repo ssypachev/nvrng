@@ -13,6 +13,12 @@ let OutputFormat = {
 	Object: "object"
 };
 
+let StringFormat = {
+	Lowercase:  "lowercase",
+	Uppercase:  "uppercase",
+	Capitalize: "capitalize"
+};
+
 let addToSet = (set, val, _) => {
 	set.add(val);
 }
@@ -125,7 +131,7 @@ class NVRNG {
 		return [null, arr];
 	}
 	
-	getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set() } = {}) {
+	getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ' } = {}) {
 		let self = this;
 		if (gender !== Genders.Any) {
 			if (!self.keys.includes(gender)) {
@@ -151,7 +157,7 @@ class NVRNG {
 				let arr = self.getArrOfGender(self.rset[space], gender);
 				p.push(arr[NVRNG.randIntFromZero(arr.length)]);
 			}
-			let tmp = p.join(' ');
+			let tmp = p.join(delimiter);
 			adder(out, tmp, proExclude);
 		}
 		switch (output) {

@@ -34,7 +34,7 @@ Setup vocabulary. Returns error. If everything is ok, then returns `null`;
 `filename` - path to `json` vocabulary
 `shuffle`  - to shuffle vocabulary after upload
 
-### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude }) => [err, set]`
+### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ' }) => [err, set]`
 Generate set of random names. Returns array. First element is error (`null` if ok), second is a set of names;
 `gender` - gender, possible values are 'n', 'f', 'm', or 'a'. You can also use Enum `Genders` with values
 
@@ -54,10 +54,17 @@ Note that possible variants depend on your vocabulary file. Hence, if there is o
 - `OutputFormat.Array`
 - `OutputFormat.Object`
 
+Note, don't forget to export enums with NVRNG:
+```js
+let { NVRNG, OutputFormat, Genders } = require('nvrng');
+```
+
 if bad value is used, then `getSet` will return error and set.
 
-`include` - array or set of values that would be injected to output set
-`exclude` - array or set of values that would not be added to output set
+`include` - array or set of values that would be injected to output set, default is empty set. For example, if `include` is 3 unique string long and
+you generate 5 new string, then output would be 5 + 3 = 8 strings long
+`exclude` - array or set of values that must be ommitted in output set, default is empty set.
+`delimiter` - char to join random words, default is ' '
 
 ## Vocabulary
 Vocabulary is a json object which contains one or more objects ("spaces") with
