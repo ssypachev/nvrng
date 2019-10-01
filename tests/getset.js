@@ -1,10 +1,22 @@
 const   chai    = require('chai'),
       { NVRNG } = require('../index.js');
 	  
-const filename = __dirname + '/../examples/simplest.json';
+const filename  = __dirname + '/../examples/simplest.json';
+const filename4 = __dirname + '/../examples/simplest4.json';
 const fileWithGenders = __dirname + '/../examples/gender.json';
 
 describe('Should test getSet', () => {
+	
+	it ('Should test on 4-space file', () => {
+		let gen = new NVRNG();
+		let uerr = gen.upload(filename4);
+		chai.expect(uerr).to.be.null;
+		
+		let [err, out] = gen.getSet(7);
+		out.forEach((item) => {
+			chai.expect(item.split(' ').length).to.equal(4);
+		});
+	});
 	
 	it ('Should test on simplest test, size 3, with include', () => {
 		let gen = new NVRNG();

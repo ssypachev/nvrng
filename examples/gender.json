@@ -1,12 +1,12 @@
 {
 	"adjectives": {
 		"n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"],
-		"f": ["actress", "princess", "waitress", "hen",     "wife",    "mare",     "woman"],
-		"m": ["actor",   "prince",   "waiter",   "rooster", "husband", "stallion", "man"]
+		"f": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"],
+		"m": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
 	},
 	"nouns": {
-		"n": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"],
-		"f": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"],
-		"m": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+		"n": ["artist",  "heir",     "server",   "chicken", "spouse",  "horse",    "person"],
+		"f": ["actress", "princess", "waitress", "hen",     "wife",    "mare",     "woman"],
+		"m": ["actor",   "prince",   "waiter",   "rooster", "husband", "stallion", "man"]
 	}
 }
