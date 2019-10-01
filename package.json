@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Not very random temporary name generator",
   "main": "index.js",
+  "repository": "https://github.com/ssypachev/nvrng",
   "directories": {
     "test": "tests"
   },

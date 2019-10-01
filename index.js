@@ -16,8 +16,14 @@ let OutputFormat = {
 let StringFormat = {
 	Lowercase:  "lowercase",
 	Uppercase:  "uppercase",
-	Capitalize: "capitalize"
+	Capitalize: "capitalize",
+	NoFormat:   "noformat"
 };
+
+let lowerCaseFormatter  = str => str.toLowerCase();
+let upperCaseFormatter  = str => str.toUpperCase();
+let capitalizeFormatter = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+let noFormatFormatter   = str => str;
 
 let addToSet = (set, val, _) => {
 	set.add(val);
@@ -38,6 +44,16 @@ class NVRNG {
 	
 	constructor ({ limit = 100000 } = {}) {
 		this.limit = limit;
+	}
+	
+	static getStringFormatter (format) {
+		switch (format) {
+		case StringFormat.Lowercase:  return lowerCaseFormatter;
+		case StringFormat.Uppercase:  return upperCaseFormatter;
+		case StringFormat.Capitalize: return capitalizeFormatter;
+		case StringFormat.NoFormat:   return noFormatFormatter;
+		default: return null;
+		}
 	}
 	
 	static getAdders () {
@@ -131,7 +147,7 @@ class NVRNG {
 		return [null, arr];
 	}
 	
-	getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ' } = {}) {
+	getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
 		let self = this;
 		if (gender !== Genders.Any) {
 			if (!self.keys.includes(gender)) {
@@ -149,13 +165,18 @@ class NVRNG {
 		if (err) {
 			return [err, null];
 		}
-		let adder = proExclude.size > 0 ? addToSetAndExclude : addToSet;
-		let limitter = self.limit;
+		let formatter = NVRNG.getStringFormatter(format);
+		if (formatter === null) {
+			return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
+		}
+		let adder    = proExclude.size > 0 ? addToSetAndExclude : addToSet,
+			limitter = self.limit;
 		while (out.size < size && limitter-->0) {
 			let p = [];
 			for (let space of self.spaces) {
 				let arr = self.getArrOfGender(self.rset[space], gender);
-				p.push(arr[NVRNG.randIntFromZero(arr.length)]);
+				let index = NVRNG.randIntFromZero(arr.length);
+				p.push(formatter(arr[index]));
 			}
 			let tmp = p.join(delimiter);
 			adder(out, tmp, proExclude);
@@ -173,6 +194,7 @@ class NVRNG {
 module.exports.NVRNG   = NVRNG;
 module.exports.Genders = Genders;
 module.exports.OutputFormat = OutputFormat;
+module.exports.StringFormat = StringFormat;
 
 
 

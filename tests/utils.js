@@ -1,7 +1,24 @@
 const   chai    = require('chai'),
-      { NVRNG, OutputFormat } = require('../index.js');
+      { NVRNG, OutputFormat, StringFormat } = require('../index.js');
 	  
 describe('Should test utils and enums', () => {
+	
+	it ('Should test output formatter', () => {
+		let a = NVRNG.getStringFormatter(StringFormat.Lowercase);
+		chai.expect(a("AsDfGhJ")).to.equal("asdfghj");
+		
+		let b = NVRNG.getStringFormatter(StringFormat.Uppercase);
+		chai.expect(b("AsDfGhJ")).to.equal("ASDFGHJ");
+		
+		let c = NVRNG.getStringFormatter(StringFormat.Capitalize);
+		chai.expect(c("AsDfGhJ")).to.equal("Asdfghj");
+		
+		let d = NVRNG.getStringFormatter(StringFormat.NoFormat);
+		chai.expect(d("AsDfGhJ")).to.equal("AsDfGhJ");
+		
+		let e = NVRNG.getStringFormatter();
+		chai.expect(e).to.be.null;
+	});
 	
 	it ('Should test arr or set to set', () => {
 		let ideal = ["one", "two", "three"];

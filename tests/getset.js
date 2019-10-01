@@ -7,6 +7,17 @@ const fileWithGenders = __dirname + '/../examples/gender.json';
 
 describe('Should test getSet', () => {
 	
+	it ('Should fail on bad format', () => {
+		let gen = new NVRNG();
+		let uerr = gen.upload(filename4);
+		chai.expect(uerr).to.be.null;
+		
+		let [err, out] = gen.getSet(7, { format: 'some' });
+		chai.expect(err).not.to.be.null;
+		chai.expect(out).to.be.null;
+		console.log(err);
+	});
+	
 	it ('Should test delimiter', () => {
 		let gen = new NVRNG();
 		let uerr = gen.upload(filename4);
