@@ -1,3 +1,5 @@
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/ssypachev/nvrng/master.svg?style=flat-square)](https://codecov.io/gh/ssypachev/nvrng/)
+
 # nvrng
 Not very random temporary name generator
 

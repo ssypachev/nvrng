@@ -5,11 +5,12 @@
   "main": "index.js",
   "repository": "https://github.com/ssypachev/nvrng",
   "directories": {
-    "test": "tests"
+    "test": "tests,examples"
   },
   "scripts": {
     "test": "mocha tests",
-	"cover": "nyc mocha tests"
+	"cover": "nyc mocha tests",
+	"report": "nyc report --reporter=text-lcov > coverage.lcov && codecov -t $TOKEN"
   },
   "author": "Sypachev S.S.",
   "license": "ISC",
