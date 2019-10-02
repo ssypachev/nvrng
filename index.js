@@ -164,7 +164,7 @@ class NVRNG {
 		}
 		let limitter = self.limit,
 			out;
-		while (limitter-->0) {
+		do {
 			let p = [];
 			for (let space of self.spaces) {
 				let arr = self.getArrOfGender(self.rset[space], gender);
@@ -172,10 +172,8 @@ class NVRNG {
 				p.push(formatter(arr[index]));
 			}
 			out = p.join(delimiter);
-			if (!proExclude.has(out)) {
-				break;
-			}
-		}
+		} while (limitter-->0 &&
+			proExclude.has(out));
 		return [null, out];
 	}
 	

@@ -18,6 +18,16 @@ describe('Should test getOne', () => {
 		console.log(err);
 	});
 	
+	it ('Should fail on unlimit', () => {
+		let gen = new NVRNG({ limit: -1 });
+		let uerr = gen.upload(filename4);
+		chai.expect(uerr).to.be.null;
+		
+		let [err, out] = gen.getOne();
+		chai.expect(err).to.be.null;
+		chai.expect(out).not.to.equal("");
+	});
+	
 	it ('Should test delimiter', () => {
 		let gen = new NVRNG();
 		let uerr = gen.upload(filename4);
