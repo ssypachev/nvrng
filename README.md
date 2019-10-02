@@ -80,7 +80,7 @@ you generate 5 new strings, then output would be 5 + 3 = 8 strings long
 
 `delimiter` - char to join random words, default is ' '
 
-## `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
+#### `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
 
 Returns one string. Same options as in `getSet` (except `include` and `output`).
 
