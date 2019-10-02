@@ -75,7 +75,9 @@ if bad value is used, then `getSet` will return error and set.
 
 `include` - array or set of values that would be injected to output set, default is empty set. For example, if `include` is 3 unique string long and
 you generate 5 new string, then output would be 5 + 3 = 8 strings long
-`exclude` - array or set of values that must be ommitted in output set, default is empty set.
+
+`exclude` - array or set of values that must be ommitted in output set, default is empty set
+
 `delimiter` - char to join random words, default is ' '
 
 ## `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
@@ -124,7 +126,7 @@ console.log(err);
 set.forEach(item => console.log(item));
 
 let newname;
-[err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize });
+[err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize, exclude: set });
 
 console.log(newname);
 ```

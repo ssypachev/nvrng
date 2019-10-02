@@ -9,6 +9,6 @@ console.log(err); //null
 set.forEach(item => console.log(item));
 
 let newname;
-[err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize });
+[err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize, exclude: set });
 
 console.log(newname);
