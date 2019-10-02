@@ -10,8 +10,9 @@
   "scripts": {
     "test": "mocha tests",
     "cover": "nyc mocha tests",
-    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov -t $TOKEN"
+    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov -t %TOKEN%"
   },
+  "keywords": "random, temporary, readable, name, generator",
   "author": "Sypachev S.S.",
   "license": "ISC",
   "devDependencies": {

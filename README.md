@@ -19,24 +19,26 @@ const { NVRNG } = require('nvrng');
 
 let gen = new NVRNG();
 gen.upload('./file.json');
-let nameset = gen.getSet(5);
+let [err, nameset] = gen.getSet(5);
 
 ```
 Here `nameset` is of type `Set`
 
 # Options
 
-### `constructor({ limit = 100000 })`
+#### `constructor({ limit = 100000 })`
 
 `limit` - max number of attempts to create set
 
-### `upload(filename, { shuffle = true }) => err`
+#### `upload(filename, { shuffle = true }) => err`
+
 Setup vocabulary. Returns error. If everything is ok, then returns `null`;
 
 `filename` - path to `json` vocabulary
+
 `shuffle`  - to shuffle vocabulary after upload
 
-### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, set]`
+#### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, set]`
 Generate set of random names. Returns array. First element is error (`null` if ok), second is a set of names;
 
 `gender` - gender, possible values are 'n', 'f', 'm', or 'a'. You can also use Enum `Genders` with values
@@ -78,7 +80,7 @@ you generate 5 new string, then output would be 5 + 3 = 8 strings long
 
 ## `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
 
-Returns one string. Same options as in `getSet`.
+Returns one string. Same options as in `getSet` (except `include` and `output`).
 
 ## Vocabulary
 Vocabulary is a json object which contains one or more objects ("spaces") with
@@ -138,7 +140,9 @@ Purple-Dog-With-Car
 
 ## Testing
 Clone repository and run
+
 `npm run test`
+
 `npm run cover`
 
 
