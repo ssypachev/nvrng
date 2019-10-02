@@ -38,6 +38,7 @@ Setup vocabulary. Returns error. If everything is ok, then returns `null`;
 
 ### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, set]`
 Generate set of random names. Returns array. First element is error (`null` if ok), second is a set of names;
+
 `gender` - gender, possible values are 'n', 'f', 'm', or 'a'. You can also use Enum `Genders` with values
 
 - `Genders.Any`
@@ -75,6 +76,10 @@ you generate 5 new string, then output would be 5 + 3 = 8 strings long
 `exclude` - array or set of values that must be ommitted in output set, default is empty set.
 `delimiter` - char to join random words, default is ' '
 
+## `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
+
+Returns one string. Same options as in `getSet`.
+
 ## Vocabulary
 Vocabulary is a json object which contains one or more objects ("spaces") with
 1 to 3 different arrays. For example
@@ -103,6 +108,33 @@ or
     }
 }
 ```
+
+## Examples
+```js
+let { NVRNG, OutputFormat, Genders, StringFormat } = require('../index.js');
+
+let gen = new NVRNG();
+gen.upload(__dirname + '/../examples/simplest4.json');
+
+let [err, set] = gen.getSet(3, { delimiter: '-', format: StringFormat.Capitalize });
+
+console.log(err);
+set.forEach(item => console.log(item));
+
+let newname;
+[err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize });
+
+console.log(newname);
+```
+Output is
+```js
+null
+Dark-blue-Mouse-With-Notebook
+Purple-Dog-With-Gun
+Green-Elephant-With-Gun
+Purple-Dog-With-Car
+```
+
 
 ## Testing
 Clone repository and run
