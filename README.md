@@ -73,8 +73,8 @@ let { NVRNG, OutputFormat, Genders, StringFormat } = require('nvrng');
 
 if bad value is used, then `getSet` will return error and set.
 
-`include` - array or set of values that would be injected to output set, default is empty set. For example, if `include` is 3 unique string long and
-you generate 5 new string, then output would be 5 + 3 = 8 strings long
+`include` - array or set of values that would be injected to output set, default is empty set. For example, if `include` is 3 unique strings long and
+you generate 5 new strings, then output would be 5 + 3 = 8 strings long
 
 `exclude` - array or set of values that must be ommitted in output set, default is empty set
 
