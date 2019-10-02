@@ -24,7 +24,7 @@ let [err, nameset] = gen.getSet(5);
 ```
 Here `nameset` is of type `Set`
 
-# Options
+## Methods
 
 #### `constructor({ limit = 100000 })`
 
