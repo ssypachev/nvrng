@@ -114,9 +114,10 @@ class NVRNG {
 	getArrOfGender (space, gender) {
 		let self = this;
 		if (gender === Genders.Any) {
-			return space[self.keys[ NVRNG.randIntFromZero(self.keys.length) ]]; 
+			let proGender = self.keys[ NVRNG.randIntFromZero(self.keys.length) ];
+			return [proGender, space[proGender]]; 
 		}
-		return space[gender];
+		return [gender, space[gender]];
 	}
 	
 	static convertSet (data, type = OutputFormat.Set) {
@@ -165,9 +166,10 @@ class NVRNG {
 		let limitter = self.limit,
 			out;
 		do {
-			let p = [];
+			let p = [], arr;
+			let proGender = gender;
 			for (let space of self.spaces) {
-				let arr = self.getArrOfGender(self.rset[space], gender);
+				[proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
 				let index = NVRNG.randIntFromZero(arr.length);
 				p.push(formatter(arr[index]));
 			}
@@ -199,12 +201,13 @@ class NVRNG {
 		if (formatter === null) {
 			return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
 		}
-		let adder    = proExclude.size > 0 ? addToSetAndExclude : addToSet,
-			limitter = self.limit;
+		let adder     = proExclude.size > 0 ? addToSetAndExclude : addToSet,
+			limitter  = self.limit;
 		while (out.size < size && limitter-->0) {
-			let p = [];
+			let p = [], arr;
+			let proGender = gender;
 			for (let space of self.spaces) {
-				let arr = self.getArrOfGender(self.rset[space], gender);
+				[proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
 				let index = NVRNG.randIntFromZero(arr.length);
 				p.push(formatter(arr[index]));
 			}
