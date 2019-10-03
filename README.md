@@ -24,6 +24,10 @@ let [err, nameset] = gen.getSet(5);
 ```
 Here `nameset` is of type `Set`
 
+Some predefined vocabularies can be found in `vocabularies` folder in [repository](https://github.com/ssypachev/nvrng/tree/master/vocabularies)
+
+Please, make pull request to find any errors in words or if you have any other vocabulary to suggest.
+
 ## Methods
 
 #### `constructor({ limit = 100000 })`
