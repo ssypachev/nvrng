@@ -1,14 +1,14 @@
 {
-	"a": {
-		"n": ["red", "orange", "yellow", "green", "blue", "dark-blue", "purple"]
-	},
-	"b": {
-		"n": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
-	},
-	"c": {
-		"n": ["with"]
-	},
-	"d": {
-		"n": ["gun", "scissors", "car", "horseshoes", "pencil", "notebook", "keys"]
-	}
+    "a": {
+        "n": ["red", "orange", "yellow", "green", "blue", "dark-blue", "purple"]
+    },
+    "b": {
+        "n": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+    },
+    "c": {
+        "n": ["with"]
+    },
+    "d": {
+        "n": ["gun", "scissors", "car", "horseshoes", "pencil", "notebook", "keys"]
+    }
 }

@@ -1,9 +1,9 @@
 {
-	"adjectives": {
-		"n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"],
-		"f": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
-	},
-	"nouns": {
-		"n": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
-	}
+    "adjectives": {
+        "n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"],
+        "f": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
+    },
+    "nouns": {
+        "n": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+    }
 }

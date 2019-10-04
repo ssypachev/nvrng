@@ -5,8 +5,8 @@
         "m": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
     },
     "nouns": {
-        "n": ["artist",  "heir",     "server",   "chicken", "spouse",  "horse",    "person"],
         "f": ["actress", "princess", "waitress", "hen",     "wife",    "mare",     "woman"],
+        "n": ["artist",  "heir",     "server",   "chicken", "spouse",  "horse",    "person"],
         "m": ["actor",   "prince",   "waiter",   "rooster", "husband", "stallion", "man"]
     }
 }
