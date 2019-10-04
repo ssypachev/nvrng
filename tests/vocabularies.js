@@ -15,7 +15,7 @@ describe('Should test ready-to-use vocabularies', () => {
 		chai.expect(err).to.be.null;
 		chai.expect(out).not.to.be.null;
 		chai.expect(out.size).to.equal(30);
-		out.forEach((item) => console.log(item));
+		//out.forEach((item) => console.log(item));
 	});
 	
 	it ('Should test en_colored_animals.json', () => {
@@ -27,7 +27,7 @@ describe('Should test ready-to-use vocabularies', () => {
 		chai.expect(err).to.be.null;
 		chai.expect(out).not.to.be.null;
 		chai.expect(out.size).to.equal(30);
-		out.forEach((item) => console.log(item));
+		//out.forEach((item) => console.log(item));
 	});
 	
 });

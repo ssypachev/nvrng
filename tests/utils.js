@@ -1,7 +1,29 @@
 const   chai    = require('chai'),
       { NVRNG, OutputFormat, StringFormat } = require('../index.js');
 	  
+const filename1 = __dirname + '/../examples/simplest.json';
+const filename2 = __dirname + '/../examples/simplest4.json';
+const filename3 = __dirname + '/../examples/gender.json';
+	  
 describe('Should test utils and enums', () => {
+	
+	it ('Should test get keys', () => {
+		let gen = new NVRNG();
+		let err = gen.upload(filename1);
+		chai.expect(err).to.be.null;
+		
+		chai.expect(gen.getKeys()).to.include.members(['n']);
+		
+		err = gen.upload(filename2);
+		chai.expect(err).to.be.null;
+		
+		chai.expect(gen.getKeys()).to.include.members(['n']);
+		
+		err = gen.upload(filename3);
+		chai.expect(err).to.be.null;
+		
+		chai.expect(gen.getKeys()).to.include.members(['n', 'f', 'm']);
+	});
 	
 	it ('Should test output formatter', () => {
 		let a = NVRNG.getStringFormatter(StringFormat.Lowercase);

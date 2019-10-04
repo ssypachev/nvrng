@@ -6,7 +6,7 @@ const badkeys  = __dirname + '/../examples/err_bad_keys.json';
 	  
 describe('Should test upload method', () => {
 	
-	it ('Should filaon file not found', () => {
+	it ('Should fail on file not found', () => {
 		let gen = new NVRNG();
 		let err = gen.upload('some.some');
 		chai.expect(err).not.to.be.null;

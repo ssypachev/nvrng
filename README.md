@@ -88,6 +88,16 @@ you generate 5 new strings, then output would be 5 + 3 = 8 strings long
 
 Returns one string. Same options as in `getSet` (except `include` and `output`).
 
+#### getKeys => Array
+
+Returns array of keys available for uploaded vocabulary
+
+```js
+const filename = __dirname + '/../examples/gender.json';
+err = gen.upload(filename);	
+console.log(gen.getKeys()); //[ 'f', 'm', 'n' ]
+```
+
 ## Vocabulary
 Vocabulary is a json object which contains one or more objects ("spaces") with
 1 to 3 different arrays. For example

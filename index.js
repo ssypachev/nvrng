@@ -148,6 +148,10 @@ class NVRNG {
 		return [null, arr];
 	}
 	
+	getKeys () {
+		return this.keys;
+	}
+	
 	getOne ({ gender = Genders.Any, output = OutputFormat.Set, exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
 		let self = this;
 		if (gender !== Genders.Any) {
