@@ -151,19 +151,19 @@ class NVRNG {
     getKeys () {
         return this.keys;
     }
-	
-	static getJoiner (noJoin) {
-		if (noJoin === true) {
-			return (data, delimiter) => {
-				return [data.join(delimiter), data];
-			}
-		} else {
-			return (data, delimiter) => {
-				let tstr = data.join(delimiter);
-				return [tstr, tstr];
-			}
-		}
-	}
+
+    static getJoiner (noJoin) {
+        if (noJoin === true) {
+            return (data, delimiter) => {
+                return [data.join(delimiter), data];
+            }
+        } else {
+            return (data, delimiter) => {
+                let tstr = data.join(delimiter);
+                return [tstr, tstr];
+            }
+        }
+    }
 
     getOne ({ gender = Genders.Any, output = OutputFormat.Set, exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat, noJoin = false } = {}) {
         let self = this;
@@ -182,16 +182,16 @@ class NVRNG {
         }
         let limitter = self.limit,
             out, tstr,
-			joiner = NVRNG.getJoiner(noJoin);
+            joiner = NVRNG.getJoiner(noJoin);
         do {
             let p = [], arr;
-            let proGender = gender;			
+            let proGender = gender;
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
                 let index = NVRNG.randIntFromZero(arr.length);
                 p.push(formatter(arr[index]));
             }
-			[tstr, out] = joiner(p, delimiter);
+            [tstr, out] = joiner(p, delimiter);
         } while (limitter-->0 &&
             proExclude.has(tstr));
         return [null, out];
@@ -221,8 +221,8 @@ class NVRNG {
         }
         let adder    = proExclude.size > 0 ? addToSetAndExclude : addToSet,
             limitter = self.limit,
-			tstr, tmp,
-			joiner   = NVRNG.getJoiner(noJoin);
+            tstr, tmp,
+            joiner   = NVRNG.getJoiner(noJoin);
         while (out.size < size && limitter-->0) {
             let p = [], arr;
             let proGender = gender;

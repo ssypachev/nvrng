@@ -62,23 +62,23 @@ describe('Should test utils and enums', () => {
         chai.expect(err).not.to.be.null;
         chai.expect(o3).to.be.null;
     });
-	
-	it ('Should test joiner', () => {
-		let j = NVRNG.getJoiner(true);
-		
-		let [ts, ta] = j(['a', 'b', 'c'], '+');
-		
-		chai.expect(ts).to.equal('a+b+c');
-		chai.expect(ta).to.be.an('array');
-		chai.expect(ta).to.include.members(['a', 'b', 'c']);
-		
-		j = NVRNG.getJoiner(false);
-		
-		[ts, ta] = j(['a', 'b', 'c'], '+');
-		
-		chai.expect(ts).to.equal('a+b+c');
-		chai.expect(ta).to.equal('a+b+c');
-	});
+
+    it ('Should test joiner', () => {
+        let j = NVRNG.getJoiner(true);
+
+        let [ts, ta] = j(['a', 'b', 'c'], '+');
+
+        chai.expect(ts).to.equal('a+b+c');
+        chai.expect(ta).to.be.an('array');
+        chai.expect(ta).to.include.members(['a', 'b', 'c']);
+
+        j = NVRNG.getJoiner(false);
+
+        [ts, ta] = j(['a', 'b', 'c'], '+');
+
+        chai.expect(ts).to.equal('a+b+c');
+        chai.expect(ta).to.equal('a+b+c');
+    });
 
     it ('Should test adders', () => {
         let [a1, a2] = NVRNG.getAdders();

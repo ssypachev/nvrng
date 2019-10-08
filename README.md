@@ -115,7 +115,7 @@ Returns array of keys available for uploaded vocabulary
 
 ```js
 const filename = __dirname + '/../examples/gender.json';
-err = gen.upload(filename);	
+err = gen.upload(filename);
 console.log(gen.getKeys()); //[ 'f', 'm', 'n' ]
 ```
 
