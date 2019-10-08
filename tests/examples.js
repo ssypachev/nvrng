@@ -12,3 +12,12 @@ let newname;
 [err, newname] = gen.getOne({ delimiter: '-', format: StringFormat.Capitalize, exclude: set });
 
 console.log(newname);
+
+//No Join
+
+[err, set] = gen.getSet(3, { format: StringFormat.Capitalize, noJoin: true });
+console.log(set);
+
+[err, set] = gen.getOne({ format: StringFormat.Capitalize, noJoin: true });
+console.log(set);
+

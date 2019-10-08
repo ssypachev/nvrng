@@ -42,7 +42,7 @@ Setup vocabulary. Returns error. If everything is ok, then returns `null`;
 
 `shuffle`  - to shuffle vocabulary after upload
 
-#### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, set]`
+#### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat, noJoin = false }) => [err, set]`
 Generate set of random names. Returns array. First element is error (`null` if ok), second is a set of names;
 
 `gender` - gender, possible values are 'n', 'f', 'm', or 'a'. You can also use Enum `Genders` with values
@@ -84,9 +84,30 @@ you generate 5 new strings, then output would be 5 + 3 = 8 strings long
 
 `delimiter` - char to join random words, default is ' '
 
-#### `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat }) => [err, string]`
+`noJoin` - not to join elements of string. Returns collection of arrays, for example
 
-Returns one string. Same options as in `getSet` (except `include` and `output`).
+```js
+let gen = new NVRNG();
+gen.upload(__dirname + '/../examples/simplest4.json');
+
+let [err, set] = gen.getSet(3, { format: StringFormat.Capitalize, noJoin: true });
+console.log(set);
+```
+
+prints
+
+```js
+Set {
+  [ 'Red', 'Horse', 'With', 'Notebook' ],
+  [ 'Green', 'Horse', 'With', 'Keys' ],
+  [ 'Yellow', 'Duck', 'With', 'Keys' ] }
+```
+
+Be careful with `include` in this case. `noJoin` uses concatenated strings to compare values and join strings with `delimiter`.
+
+#### `getOne({ gender = Genders.Any, exclude, delimiter = ' ', format = StringFormat.NoFormat, noJoin = false }) => [err, string]`
+
+Returns array of error and single string (or array, if `noJoin` is used). Same options as in `getSet` (except `include` and `output`).
 
 #### getKeys => Array
 
