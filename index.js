@@ -25,12 +25,12 @@ let upperCaseFormatter  = str => str.toUpperCase();
 let capitalizeFormatter = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 let noFormatFormatter   = str => str;
 
-let addToSet = (set, val, _) => {
-    set.add(val);
+let addToSet = (set, valToAdd, valToCompare, _) => {
+    set.add(valToAdd);
 }
-let addToSetAndExclude = (set, val, exclude) => {
-    if (!exclude.has(val)) {
-        set.add(val);
+let addToSetAndExclude = (set, valToAdd, valToCompare, exclude) => {
+    if (!exclude.has(valToCompare)) {
+        set.add(valToAdd);
     }
 }
 
@@ -151,8 +151,21 @@ class NVRNG {
     getKeys () {
         return this.keys;
     }
+	
+	static getJoiner (noJoin) {
+		if (noJoin === true) {
+			return (data, delimiter) => {
+				return [data.join(delimiter), data];
+			}
+		} else {
+			return (data, delimiter) => {
+				let tstr = data.join(delimiter);
+				return [tstr, tstr];
+			}
+		}
+	}
 
-    getOne ({ gender = Genders.Any, output = OutputFormat.Set, exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
+    getOne ({ gender = Genders.Any, output = OutputFormat.Set, exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat, noJoin = false } = {}) {
         let self = this;
         if (gender !== Genders.Any) {
             if (!self.keys.includes(gender)) {
@@ -168,22 +181,23 @@ class NVRNG {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
         let limitter = self.limit,
-            out;
+            out, tstr,
+			joiner = NVRNG.getJoiner(noJoin);
         do {
             let p = [], arr;
-            let proGender = gender;
+            let proGender = gender;			
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
                 let index = NVRNG.randIntFromZero(arr.length);
                 p.push(formatter(arr[index]));
             }
-            out = p.join(delimiter);
+			[tstr, out] = joiner(p, delimiter);
         } while (limitter-->0 &&
-            proExclude.has(out));
+            proExclude.has(tstr));
         return [null, out];
     }
 
-    getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat } = {}) {
+    getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat, noJoin = false } = {}) {
         let self = this;
         if (gender !== Genders.Any) {
             if (!self.keys.includes(gender)) {
@@ -205,8 +219,10 @@ class NVRNG {
         if (formatter === null) {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
-        let adder     = proExclude.size > 0 ? addToSetAndExclude : addToSet,
-            limitter  = self.limit;
+        let adder    = proExclude.size > 0 ? addToSetAndExclude : addToSet,
+            limitter = self.limit,
+			tstr, tmp,
+			joiner   = NVRNG.getJoiner(noJoin);
         while (out.size < size && limitter-->0) {
             let p = [], arr;
             let proGender = gender;
@@ -215,8 +231,8 @@ class NVRNG {
                 let index = NVRNG.randIntFromZero(arr.length);
                 p.push(formatter(arr[index]));
             }
-            let tmp = p.join(delimiter);
-            adder(out, tmp, proExclude);
+            [tstr, tmp] = joiner(p, delimiter);
+            adder(out, tmp, tstr, proExclude);
         }
         switch (output) {
             case OutputFormat.Set: case OutputFormat.Array: case OutputFormat.Object:
