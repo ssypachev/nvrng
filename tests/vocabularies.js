@@ -36,11 +36,17 @@ describe('Should test ready-to-use vocabularies', () => {
         let uerr = gen.upload(filename_en_names);
         chai.expect(uerr).to.be.null;
 
-        let [err, out] = gen.getSet(30000);
+        let [err, out] = gen.getSet(100, { gender: 'm' });
         chai.expect(err).to.be.null;
         chai.expect(out).not.to.be.null;
-        chai.expect(out.size).to.equal(30000);
-        //out.forEach((item) => console.log(item));
+        chai.expect(out.size).to.equal(100);
+        out.forEach((item) => console.log(item));
+		
+		[err, out] = gen.getSet(100, { gender: 'f' });
+        chai.expect(err).to.be.null;
+        chai.expect(out).not.to.be.null;
+        chai.expect(out.size).to.equal(100);
+        out.forEach((item) => console.log(item));
     });
 
 });
