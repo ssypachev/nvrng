@@ -1,0 +1,15 @@
+{
+    "adjectives": {
+        "n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
+    },
+    "nouns": {
+        "a": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+    },
+	"clowns": {
+        "n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"],
+        "f": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
+    },
+	"ololo": {
+		"a": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+	}
+}

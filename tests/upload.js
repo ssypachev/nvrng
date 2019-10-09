@@ -11,6 +11,7 @@ const lostKey      = __dirname + '/../examples/err_lost_keys.json';
 const aCombinedKey = __dirname + '/../examples/err_a_combined.json';
 const combinedKey  = __dirname + '/../examples/a_combined.json';
 const onlyAKey     = __dirname + '/../examples/only_a.json';
+const combinedBadKey = __dirname + '/../examples/a_combined_bad_keys.json';
 
 describe('Should test upload method', () => {
 	
@@ -35,6 +36,14 @@ describe('Should test upload method', () => {
         chai.expect(err).not.to.be.null;
 		console.log(err);
         chai.expect(err).to.equal('Wrong keys found in space "nouns". Key "a" must be single key of the space');
+    });
+	
+	it ('Should fail on a shuffled with wronf keys, like a - n -a - f,m - a', () => {
+        let gen = new NVRNG();
+        let err = gen.upload(combinedBadKey);
+        chai.expect(err).not.to.be.null;
+		console.log(err);
+        chai.expect(err).to.equal('Key sets [f,n] and [n] are not equal');
     });
 	
 	it ('Should fail on lost keys', () => {

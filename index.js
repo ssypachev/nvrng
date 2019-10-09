@@ -145,7 +145,7 @@ class NVRNG {
             if (allKeySets[i].length === 1 && allKeySets[i][0] === Genders.Any) {
 				allKeySets[i] = allKeySets[i - 1];
 			} else if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i-1])) {
-                return `Key sets [${allKeySets[i]}] of "${self.spaces[i]}" and [${allKeySets[i-1]}] of "${self.spaces[i-1]}" are not equal`;
+                return `Key sets [${allKeySets[i]}] and [${allKeySets[i-1]}] are not equal`;
             }
         }
 
