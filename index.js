@@ -85,14 +85,7 @@ class NVRNG {
             self.rset = require(filename);
         } catch (err) {
             return err;
-        }
-        if (shuffle) {
-            for (let [key, space] of Object.entries(self.rset)) {
-                for (let [key, arr] of Object.entries(space)) {
-                    NVRNG.shuffle(arr);
-                }
-            }
-        }
+        }        
         let allKeySets = [];
         for (let [key, space] of Object.entries(self.rset)) {
             allKeySets.push(Object.keys(space).sort());
@@ -103,6 +96,14 @@ class NVRNG {
         for (let i = 0; i < self.spaceLength - 1; i += 1) {
             if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i+1])) {
                 return `Key sets [${allKeySets[i]}] of "${self.spaces[i]}" and [${allKeySets[i+1]}] of "${self.spaces[i+1]}" are not equal`;
+            }
+        }
+		
+		if (shuffle) {
+            for (let [key, space] of Object.entries(self.rset)) {
+                for (let [key, arr] of Object.entries(space)) {
+                    NVRNG.shuffle(arr);
+                }
             }
         }
 
