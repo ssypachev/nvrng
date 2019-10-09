@@ -1,0 +1,8 @@
+{
+    "adjectives": {
+        "n": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
+    },
+    "nouns": {
+        "x": ["cat", "dog", "cow", "horse", "mouse", "duck", "elephant"]
+    }
+}

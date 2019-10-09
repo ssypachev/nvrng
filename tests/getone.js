@@ -4,8 +4,19 @@ const   chai    = require('chai'),
 const filename  = __dirname + '/../examples/simplest.json';
 const filename4 = __dirname + '/../examples/simplest4.json';
 const fileWithGenders = __dirname + '/../examples/gender.json';
+const fileCompact = __dirname + '/../examples/compact.json';
 
 describe('Should test getOne', () => {
+	
+	it ('Should test compact json', () => {
+		let gen = new NVRNG();
+        let uerr = gen.upload(fileCompact);
+        chai.expect(uerr).to.be.null;
+		
+        let [err, out] = gen.getOne();
+        chai.expect(err).to.be.null;
+        chai.expect(out).to.be.a('string');
+	});
 
     it ('Should test noJoin = true', () => {
         let gen = new NVRNG();
