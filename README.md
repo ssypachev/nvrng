@@ -5,7 +5,7 @@ Not very random temporary name generator
 
 ## Description
 
-`NVRNG` generates array of random readable names, like 'Silver Raccoon' or 'Purple Snake'.
+`NVRNG` generates array of random readable names, like 'Silver Raccoon', 'Purple Snake' or sets of real names like 'Aaron Smith', etc.
 `NVRNG` can create sets for different genders (like 'Lemon Stallion' or 'Marble Actress').
 `NVRNG` uses vocabulary in `json` format.
 
@@ -25,6 +25,10 @@ let [err, nameset] = gen.getSet(5);
 Here `nameset` is of type `Set`
 
 Some predefined vocabularies can be found in `vocabularies` folder in [repository](https://github.com/ssypachev/nvrng/tree/master/vocabularies)
+
+[EN Colored Animals](https://github.com/ssypachev/nvrng/blob/master/vocabularies/en_colored_animals.json)
+[RU Colored Animals](https://github.com/ssypachev/nvrng/blob/master/vocabularies/en_colored_animals.json)
+[EN Common Names](https://github.com/ssypachev/nvrng/blob/master/vocabularies/en_common_names.json)
 
 Please, make pull request if found any errors or if you have any other vocabulary to suggest.
 
@@ -147,6 +151,12 @@ or
     }
 }
 ```
+
+Number of "spaces" is not limited. If one array can be used for different genders (like adjective for male and female animals in english, or second name for both male and female first name)
+then it can be substituted with one "a" array, see [EN Common Names](https://github.com/ssypachev/nvrng/blob/master/vocabularies/en_common_names.json). Array must contain at least one word.
+
+NOTE: if "a" is used, then "space" must not have any other keys. Also, all keys from all different "spaces" must match, except "a" key. If
+vocabulary has any errors then `upload` method will return error with description of the problem.
 
 ## Examples
 ```js
