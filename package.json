@@ -1,6 +1,6 @@
 {
   "name": "nvrng",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Not very random temporary name generator",
   "main": "index.js",
   "repository": "https://github.com/ssypachev/nvrng",
