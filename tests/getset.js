@@ -6,6 +6,18 @@ const filename4 = __dirname + '/../examples/simplest4.json';
 const fileWithGenders = __dirname + '/../examples/gender.json';
 
 describe('Should test getSet', () => {
+	
+	it ('Should fail on negative size, not number', () => {
+		let gen = new NVRNG();
+        let uerr = gen.upload(filename4);
+        chai.expect(uerr).to.be.null;
+		
+		let [err, out] = gen.getSet(-3);
+		chai.expect(err).not.to.be.null;
+		
+		[err, out] = gen.getSet("some");
+		chai.expect(err).not.to.be.null;
+	});
 
     it ('Should test noJoin', () => {
         let gen = new NVRNG();

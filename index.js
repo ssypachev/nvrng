@@ -194,7 +194,7 @@ class NVRNG {
     }
 
     static getJoiner (noJoin) {
-        if (noJoin === true) {
+        if (!!noJoin === true) {
             return (data, delimiter) => {
                 return [data.join(delimiter), data];
             }
@@ -221,15 +221,15 @@ class NVRNG {
         if (formatter === null) {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
-        let limitter = self.limit,
-            out, tstr,
-            joiner = NVRNG.getJoiner(noJoin);
+        let limitter  = self.limit,
+			proGender = gender,
+			joiner    = NVRNG.getJoiner(noJoin),
+            out, tstr, p, arr, index;
         do {
-            let p = [], arr;
-            let proGender = gender;
+            p = [];
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
-                let index = NVRNG.randIntFromZero(arr.length);
+				index = NVRNG.randIntFromZero(arr.length);
                 p.push(formatter(arr[index]));
             }
             [tstr, out] = joiner(p, delimiter);
@@ -239,6 +239,10 @@ class NVRNG {
     }
 
     getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat, noJoin = false } = {}) {
+		size = +size;
+		if (isNaN(size) || size < 0) {
+			return [`Bad "size" parameter`, null];
+		}
         let self = this;
         if (gender !== Genders.Any) {
             if (!self.keys.includes(gender)) {
@@ -260,13 +264,13 @@ class NVRNG {
         if (formatter === null) {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
-        let adder    = proExclude.size > 0 ? addToSetAndExclude : addToSet,
-            limitter = self.limit,
-            tstr, tmp,
-            joiner   = NVRNG.getJoiner(noJoin);
-        while (out.size < size && limitter-->0) {
-            let p = [], arr;
-            let proGender = gender;
+        let adder     = proExclude.size > 0 ? addToSetAndExclude : addToSet,
+            limitter  = self.limit,
+			joiner    = NVRNG.getJoiner(noJoin),
+			proGender = gender,
+            tstr, tmp, p, arr;
+        do {
+            p = [];
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
                 let index = NVRNG.randIntFromZero(arr.length);
@@ -274,7 +278,7 @@ class NVRNG {
             }
             [tstr, tmp] = joiner(p, delimiter);
             adder(out, tmp, tstr, proExclude);
-        }
+        } while (out.size < size && limitter-->0);
         switch (output) {
             case OutputFormat.Set: case OutputFormat.Array: case OutputFormat.Object:
                 break;
