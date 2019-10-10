@@ -14,54 +14,54 @@ const onlyAKey     = __dirname + '/../examples/only_a.json';
 const combinedBadKey = __dirname + '/../examples/a_combined_bad_keys.json';
 
 describe('Should test upload method', () => {
-	
-	it ('Should not fail on only "a"', () => {
+
+    it ('Should not fail on only "a"', () => {
         let gen = new NVRNG();
         let err = gen.upload(onlyAKey);
         chai.expect(err).to.be.null;
-		
-		let keys = gen.getKeys();
-		chai.expect(keys).to.include.members(['f', 'm', 'n']);
+
+        let keys = gen.getKeys();
+        chai.expect(keys).to.include.members(['f', 'm', 'n']);
     });
-	
-	it ('Should not fail on "a" shuffled', () => {
+
+    it ('Should not fail on "a" shuffled', () => {
         let gen = new NVRNG();
         let err = gen.upload(combinedKey);
         chai.expect(err).to.be.null;
     });
-	
-	it ('Should fail on a combined', () => {
+
+    it ('Should fail on a combined', () => {
         let gen = new NVRNG();
         let err = gen.upload(aCombinedKey);
         chai.expect(err).not.to.be.null;
-		console.log(err);
+        console.log(err);
         chai.expect(err).to.equal('Wrong keys found in space "nouns". Key "a" must be single key of the space');
     });
-	
-	it ('Should fail on a shuffled with wronf keys, like a - n -a - f,m - a', () => {
+
+    it ('Should fail on a shuffled with wronf keys, like a - n -a - f,m - a', () => {
         let gen = new NVRNG();
         let err = gen.upload(combinedBadKey);
         chai.expect(err).not.to.be.null;
-		console.log(err);
+        console.log(err);
         chai.expect(err).to.equal('Key sets [f,n] and [n] are not equal');
     });
-	
-	it ('Should fail on lost keys', () => {
+
+    it ('Should fail on lost keys', () => {
         let gen = new NVRNG();
         let err = gen.upload(lostKey);
         chai.expect(err).not.to.be.null;
-		console.log(err);
+        console.log(err);
         chai.expect(err).to.equal('Bad amount of keys for space "adjectives". Supported keys are [a,f,m,n]');
     });
-	
-	it ('Should fail on too many keys', () => {
+
+    it ('Should fail on too many keys', () => {
         let gen = new NVRNG();
         let err = gen.upload(tooManyKey);
         chai.expect(err).not.to.be.null;
         chai.expect(err).to.equal('Bad key "d" found in space "adjectives". Supported keys are [a,f,m,n]');
     });
-	
-	it ('Should fail on unknown key', () => {
+
+    it ('Should fail on unknown key', () => {
         let gen = new NVRNG();
         let err = gen.upload(unknownKey);
         chai.expect(err).not.to.be.null;

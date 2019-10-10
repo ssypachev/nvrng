@@ -80,25 +80,25 @@ class NVRNG {
     getData () {
         return this.rset;
     }
-	
-	/**
-		Key set must be non-empty
-		If have 'a' key, then 'a' must be single array of space
-	*/
-	static validateKeys (spacename, keys) {
-		if (keys.length === 0) {
-			return `Bad amount of keys for space "${spacename}". Supported keys are [${Object.values(Genders)}]`;
-		}
-		for (let key of keys) {			
-			if (!genderValues.has(key)) {
-				return `Bad key "${key}" found in space "${spacename}". Supported keys are [${Object.values(Genders)}]`;
-			}
-			if (key === 'a' && keys.length > 1) {
-				return `Wrong keys found in space "${spacename}". Key "a" must be single key of the space`;
-			}
-		}
-		return null;
-	}
+
+    /**
+        Key set must be non-empty
+        If have 'a' key, then 'a' must be single array of space
+    */
+    static validateKeys (spacename, keys) {
+        if (keys.length === 0) {
+            return `Bad amount of keys for space "${spacename}". Supported keys are [${Object.values(Genders)}]`;
+        }
+        for (let key of keys) {
+            if (!genderValues.has(key)) {
+                return `Bad key "${key}" found in space "${spacename}". Supported keys are [${Object.values(Genders)}]`;
+            }
+            if (key === 'a' && keys.length > 1) {
+                return `Wrong keys found in space "${spacename}". Key "a" must be single key of the space`;
+            }
+        }
+        return null;
+    }
 
     upload (filename, { shuffle = true } = {}) {
         let self = this;
@@ -106,29 +106,20 @@ class NVRNG {
             self.rset = require(filename);
         } catch (err) {
             return err;
-        }        
+        }
         let allKeySets = [];
         for (let [spacename, space] of Object.entries(self.rset)) {
-			let keys = Object.keys(space);
-			let err = NVRNG.validateKeys(spacename, keys);
-			if (err) {
-				return err;
-			}
+            let keys = Object.keys(space);
+            let err = NVRNG.validateKeys(spacename, keys);
+            if (err) {
+                return err;
+            }
             allKeySets.push(keys.sort());
         }
         self.spaces = Object.keys(self.rset);
         self.spaceLength = self.spaces.length;
 
-		/*
-        for (let i = 0; i < self.spaceLength - 1; i += 1) {
-            if (!(allKeySets[i].length === 1 && allKeySets[i][0] === Genders.Any) && 
-				(JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i+1]))) {
-                return `Key sets [${allKeySets[i]}] of "${self.spaces[i]}" and [${allKeySets[i+1]}] of "${self.spaces[i+1]}" are not equal`;
-            }
-        }
-		*/
-
-		if (shuffle) {
+        if (shuffle) {
             for (let [key, space] of Object.entries(self.rset)) {
                 for (let [key, arr] of Object.entries(space)) {
                     NVRNG.shuffle(arr);
@@ -136,33 +127,33 @@ class NVRNG {
             }
         }
 
-		for (let i = 0; i < self.spaceLength - 1; i += 1) {
+        for (let i = 0; i < self.spaceLength - 1; i += 1) {
             if (allKeySets[i].length === 1 && allKeySets[i][0] === Genders.Any) {
-				allKeySets[i] = allKeySets[i + 1];
-			}
+                allKeySets[i] = allKeySets[i + 1];
+            }
         }
-		for (let i = self.spaceLength - 1; i > 0; i -= 1) {
+        for (let i = self.spaceLength - 1; i > 0; i -= 1) {
             if (allKeySets[i].length === 1 && allKeySets[i][0] === Genders.Any) {
-				allKeySets[i] = allKeySets[i - 1];
-			} else if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i-1])) {
+                allKeySets[i] = allKeySets[i - 1];
+            } else if (JSON.stringify(allKeySets[i]) !== JSON.stringify(allKeySets[i-1])) {
                 return `Key sets [${allKeySets[i]}] and [${allKeySets[i-1]}] are not equal`;
             }
         }
 
-		self.keys = JSON.parse(JSON.stringify(allKeySets[0]));
-		if (self.keys[0] === 'a') {
-			self.keys = ['f', 'm', 'n'];
-		}
+        self.keys = JSON.parse(JSON.stringify(allKeySets[0]));
+        if (self.keys[0] === 'a') {
+            self.keys = ['f', 'm', 'n'];
+        }
         allKeySets = [];
         return null;
     }
 
     getArrOfGender (space, gender) {
         let self = this,
-			keys = Object.keys(space);
-		if (keys[0] === 'a') {
-			return [gender, space['a']];
-		}
+            keys = Object.keys(space);
+        if (keys[0] === 'a') {
+            return [gender, space['a']];
+        }
         if (gender === Genders.Any) {
             let proGender = self.keys[ NVRNG.randIntFromZero(self.keys.length) ];
             return [proGender, space[proGender]];
