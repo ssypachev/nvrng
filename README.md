@@ -194,6 +194,23 @@ Green-Elephant-With-Gun
 Purple-Dog-With-Car
 ```
 
+Generate sets with yield
+
+```js
+let yGen = (function* () {
+    let exSet = new Set();
+    for (;;) {
+        let [err, next] = gen.getOne({ exclude: exSet });
+        exSet.add(next);
+        yield next;
+    }
+})();
+
+for (let i = 0; i < 10; i++) {
+    console.log(yGen.next().value);
+}
+```
+
 
 ## Testing
 Clone repository and run

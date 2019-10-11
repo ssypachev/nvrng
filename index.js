@@ -243,10 +243,10 @@ class NVRNG {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
         let limitter  = self.limit,
-            proGender = gender,
             joiner    = NVRNG.getJoiner(noJoin),
             out, tstr, p, arr, index;
         do {
+            let proGender = gender;
             p = [];
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
@@ -288,9 +288,9 @@ class NVRNG {
         let adder     = proExclude.size > 0 ? addToSetAndExclude : addToSet,
             limitter  = self.limit,
             joiner    = NVRNG.getJoiner(noJoin),
-            proGender = gender,
             tstr, tmp, p, arr;
         do {
+            let proGender = gender;
             p = [];
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
