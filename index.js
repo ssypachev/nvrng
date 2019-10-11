@@ -99,17 +99,17 @@ class NVRNG {
         }
         return null;
     }
-	
-	setup (data, { shuffle = true } = {}) {
-		if (typeof(data) !== 'object') {
-			return `Data passed to setup must be of type object, but ${typeof(data)} found`;
-		}
-		
-		let self = this,
-			allKeySets = [];
-		
-		self.rset = data;
-		
+
+    setup (data, { shuffle = true } = {}) {
+        if (typeof(data) !== 'object') {
+            return `Data passed to setup must be of type object, but ${typeof(data)} found`;
+        }
+
+        let self = this,
+            allKeySets = [];
+
+        self.rset = data;
+
         for (let [spacename, space] of Object.entries(self.rset)) {
             let keys = Object.keys(space);
             let err = NVRNG.validateKeys(spacename, keys);
@@ -139,8 +139,8 @@ class NVRNG {
             self.keys = ['f', 'm', 'n'];
         }
         allKeySets = [];
-		
-		
+
+
         if (shuffle) {
             for (let [key, space] of Object.entries(self.rset)) {
                 for (let [key, arr] of Object.entries(space)) {
@@ -149,12 +149,12 @@ class NVRNG {
             }
         }
 
-		return null;
-	}
+        return null;
+    }
 
     upload (filename, { shuffle = true } = {}) {
         let self = this,
-			data;
+            data;
         try {
             data = require(filename);
         } catch (err) {
@@ -162,9 +162,9 @@ class NVRNG {
         }
 
         let err = self.setup(data, { shuffle });
-		if (err) {
-			return err;
-		}
+        if (err) {
+            return err;
+        }
 
         return null;
     }
@@ -243,14 +243,14 @@ class NVRNG {
             return [`Unsupported output string format "${format}". Use [${Object.keys(StringFormat)}]`, null];
         }
         let limitter  = self.limit,
-			proGender = gender,
-			joiner    = NVRNG.getJoiner(noJoin),
+            proGender = gender,
+            joiner    = NVRNG.getJoiner(noJoin),
             out, tstr, p, arr, index;
         do {
             p = [];
             for (let space of self.spaces) {
                 [proGender, arr] = self.getArrOfGender(self.rset[space], proGender);
-				index = NVRNG.randIntFromZero(arr.length);
+                index = NVRNG.randIntFromZero(arr.length);
                 p.push(formatter(arr[index]));
             }
             [tstr, out] = joiner(p, delimiter);
@@ -260,10 +260,10 @@ class NVRNG {
     }
 
     getSet (size, { gender = Genders.Any, output = OutputFormat.Set, include = new Set(), exclude = new Set(), delimiter = ' ', format = StringFormat.NoFormat, noJoin = false } = {}) {
-		size = +size;
-		if (isNaN(size) || size < 0) {
-			return [`Bad "size" parameter`, null];
-		}
+        size = +size;
+        if (isNaN(size) || size < 0) {
+            return [`Bad "size" parameter`, null];
+        }
         let self = this;
         if (gender !== Genders.Any) {
             if (!self.keys.includes(gender)) {
@@ -287,8 +287,8 @@ class NVRNG {
         }
         let adder     = proExclude.size > 0 ? addToSetAndExclude : addToSet,
             limitter  = self.limit,
-			joiner    = NVRNG.getJoiner(noJoin),
-			proGender = gender,
+            joiner    = NVRNG.getJoiner(noJoin),
+            proGender = gender,
             tstr, tmp, p, arr;
         do {
             p = [];
