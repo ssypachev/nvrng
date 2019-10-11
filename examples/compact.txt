@@ -1,0 +1,10 @@
+{
+    "adjectives": {
+        "a": ["red", "orange", "yellow", "green", "blue", "dark blue", "purple"]
+    },
+    "nouns": {
+        "n": ["artist",  "heir",     "server",   "chicken", "spouse",  "horse",    "person"],
+        "f": ["actress", "princess", "waitress", "hen",     "wife",    "mare",     "woman"],
+        "m": ["actor",   "prince",   "waiter",   "rooster", "husband", "stallion", "man"]
+    }
+}

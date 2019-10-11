@@ -48,6 +48,14 @@ Setup vocabulary. Returns error. If everything is ok, then returns `null`;
 
 `shuffle`  - to shuffle vocabulary after upload
 
+#### `setup(data, { shuffle = true }) => err`
+
+Setup vocabulary. Returns error. If everything is ok, then returns `null`;
+
+`data` - JSON object, the vocabulary
+
+`shuffle`  - to shuffle vocabulary after upload
+
 #### `getSet(size, { gender = Genders.Any, output = OutputFormat.Set, include, exclude, delimiter = ' ', format = StringFormat.NoFormat, noJoin = false }) => [err, set]`
 Generate set of random names. Returns array. First element is error (`null` if ok), second is a set of names;
 

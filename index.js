@@ -99,15 +99,17 @@ class NVRNG {
         }
         return null;
     }
-
-    upload (filename, { shuffle = true } = {}) {
-        let self = this;
-        try {
-            self.rset = require(filename);
-        } catch (err) {
-            return err;
-        }
-        let allKeySets = [];
+	
+	setup (data, { shuffle = true } = {}) {
+		if (typeof(data) !== 'object') {
+			return `Data passed to setup must be of type object, but ${typeof(data)} found`;
+		}
+		
+		let self = this,
+			allKeySets = [];
+		
+		self.rset = data;
+		
         for (let [spacename, space] of Object.entries(self.rset)) {
             let keys = Object.keys(space);
             let err = NVRNG.validateKeys(spacename, keys);
@@ -118,14 +120,6 @@ class NVRNG {
         }
         self.spaces = Object.keys(self.rset);
         self.spaceLength = self.spaces.length;
-
-        if (shuffle) {
-            for (let [key, space] of Object.entries(self.rset)) {
-                for (let [key, arr] of Object.entries(space)) {
-                    NVRNG.shuffle(arr);
-                }
-            }
-        }
 
         for (let i = 0; i < self.spaceLength - 1; i += 1) {
             if (allKeySets[i].length === 1 && allKeySets[i][0] === Genders.Any) {
@@ -145,6 +139,33 @@ class NVRNG {
             self.keys = ['f', 'm', 'n'];
         }
         allKeySets = [];
+		
+		
+        if (shuffle) {
+            for (let [key, space] of Object.entries(self.rset)) {
+                for (let [key, arr] of Object.entries(space)) {
+                    NVRNG.shuffle(arr);
+                }
+            }
+        }
+
+		return null;
+	}
+
+    upload (filename, { shuffle = true } = {}) {
+        let self = this,
+			data;
+        try {
+            data = require(filename);
+        } catch (err) {
+            return err;
+        }
+
+        let err = self.setup(data, { shuffle });
+		if (err) {
+			return err;
+		}
+
         return null;
     }
 
